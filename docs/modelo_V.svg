@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" width="1000" height="640" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#444"/></marker></defs>
+<rect width="1000" height="640" fill="#fff"/>
+<text x="500" y="32" text-anchor="middle" font-size="20" font-weight="bold" fill="#1a1a1a">Robotics 2026/27 — Modelo em V (incrementos dentro de um V)</text>
+<rect x="20" y="60" width="270" height="58" rx="8" fill="#fde9c8" stroke="#555"/>
+<text x="155.0" y="84" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#1a1a1a">Desafio Final: ConOps + requisitos</text>
+<text x="155.0" y="103" text-anchor="middle" font-size="11.5" fill="#333">R1–R10, P1–P10 · game.py</text>
+<rect x="710" y="60" width="270" height="58" rx="8" fill="#fde9c8" stroke="#555"/>
+<text x="845.0" y="84" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#1a1a1a">Desafio Final: sistema + validação</text>
+<text x="845.0" y="103" text-anchor="middle" font-size="11.5" fill="#333">20 op., falhas induzidas, sessão ao vivo</text>
+<line x1="294" y1="89.0" x2="706" y2="89.0" stroke="#888" stroke-dasharray="6,5"/>
+<rect x="75" y="150" width="225" height="58" rx="8" fill="#dbe9f7" stroke="#555"/>
+<text x="187.5" y="174" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#1a1a1a">LW4 · trajectory.py</text>
+<text x="187.5" y="193" text-anchor="middle" font-size="11.5" fill="#333">traj_*, slide_piece, pick_and_place</text>
+<rect x="700" y="150" width="225" height="58" rx="8" fill="#e3f3e3" stroke="#555"/>
+<text x="812.5" y="174" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#1a1a1a">Integração (LW4)</text>
+<text x="812.5" y="193" text-anchor="middle" font-size="11.5" fill="#333">deslize + captura, vizinhas ocupadas</text>
+<line x1="304" y1="179.0" x2="696" y2="179.0" stroke="#888" stroke-dasharray="6,5"/>
+<rect x="130" y="240" width="225" height="58" rx="8" fill="#dbe9f7" stroke="#555"/>
+<text x="242.5" y="264" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#1a1a1a">LW3 · velocity.py</text>
+<text x="242.5" y="283" text-anchor="middle" font-size="11.5" fill="#333">jacobian, manipulability, stream</text>
+<rect x="645" y="240" width="225" height="58" rx="8" fill="#e3f3e3" stroke="#555"/>
+<text x="757.5" y="264" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#1a1a1a">Testes LW3</text>
+<text x="757.5" y="283" text-anchor="middle" font-size="11.5" fill="#333">J analítico vs numérico; aborto</text>
+<line x1="359" y1="269.0" x2="641" y2="269.0" stroke="#888" stroke-dasharray="6,5"/>
+<rect x="185" y="330" width="225" height="58" rx="8" fill="#dbe9f7" stroke="#555"/>
+<text x="297.5" y="354" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#1a1a1a">LW2 · ik.py</text>
+<text x="297.5" y="373" text-anchor="middle" font-size="11.5" fill="#333">ik_lite6 (ramos + política)</text>
+<rect x="590" y="330" width="225" height="58" rx="8" fill="#e3f3e3" stroke="#555"/>
+<text x="702.5" y="354" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#1a1a1a">Testes LW2</text>
+<text x="702.5" y="373" text-anchor="middle" font-size="11.5" fill="#333">ida-e-volta FK(IK(T)) = T</text>
+<line x1="414" y1="359.0" x2="586" y2="359.0" stroke="#888" stroke-dasharray="6,5"/>
+<rect x="240" y="420" width="225" height="58" rx="8" fill="#dbe9f7" stroke="#555"/>
+<text x="352.5" y="444" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#1a1a1a">LW1 · kinematics.py</text>
+<text x="352.5" y="463" text-anchor="middle" font-size="11.5" fill="#333">fk_lite6, tabela DH</text>
+<rect x="535" y="420" width="225" height="58" rx="8" fill="#e3f3e3" stroke="#555"/>
+<text x="647.5" y="444" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#1a1a1a">Testes LW1</text>
+<text x="647.5" y="463" text-anchor="middle" font-size="11.5" fill="#333">FK vs tf2 (T5) vs SDK (T8)</text>
+<line x1="469" y1="449.0" x2="531" y2="449.0" stroke="#888" stroke-dasharray="6,5"/>
+<text x="500" y="84" text-anchor="middle" font-size="11" fill="#666" font-style="italic">plano de validação escrito antes do código</text>
+<line x1="155.0" y1="118" x2="187.5" y2="148" stroke="#444" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="812.5" y1="150" x2="845.0" y2="120" stroke="#444" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="187.5" y1="208" x2="242.5" y2="238" stroke="#444" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="757.5" y1="240" x2="812.5" y2="210" stroke="#444" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="242.5" y1="298" x2="297.5" y2="328" stroke="#444" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="702.5" y1="330" x2="757.5" y2="300" stroke="#444" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="297.5" y1="388" x2="352.5" y2="418" stroke="#444" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="647.5" y1="420" x2="702.5" y2="390" stroke="#444" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="300" y="520" width="400" height="58" rx="8" fill="#eeeeee" stroke="#555"/>
+<text x="500" y="544" text-anchor="middle" font-size="13.5" font-weight="bold">Implementação (LW0: ambiente, safe_session, home)</text>
+<text x="500" y="563" text-anchor="middle" font-size="11.5" fill="#333">pacote lite6/ · git + etiquetas · config/robot.yaml · pytest</text>
+<line x1="352.5" y1="478" x2="340" y2="518" stroke="#444" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="660" y1="520" x2="647.5" y2="480" stroke="#444" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="40" y="610" font-size="13" fill="#1f5fa8" font-weight="bold">↓ definição / conceção (LW1 → LW4)</text>
+<text x="960" y="610" text-anchor="end" font-size="13" fill="#2e7d32" font-weight="bold">verificação / validação (Desafio Final) ↑</text>
+<text x="500" y="632" text-anchor="middle" font-size="11" fill="#666">- - - rastreabilidade: cada nível de definição emparelha com o nível de verificação à mesma altura</text>
+</svg>
