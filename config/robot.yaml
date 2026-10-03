@@ -10,6 +10,10 @@ targets:
     ip: 0.0.0.0            # <-- IP do controlador do Lite 6 da vossa bancada
     check_joint_limit: true
 
+session:
+  settle_after_disconnect_s: 1.0   # pausa após desligar; sem ela o controlador
+                                   # não responde à ligação seguinte (motion_enable code=3)
+
 ros:
   domain_id: 0             # <-- número do vosso grupo (Anexo B). O 0 é da equipa docente!
 

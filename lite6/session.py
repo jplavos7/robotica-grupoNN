@@ -86,6 +86,8 @@ def safe_session(cfg: dict | None = None):
     finally:
         arm.disconnect()
         log.info("desligado")
+        # O controlador precisa de tempo para libertar a ligação antes de aceitar outra.
+        time.sleep(cfg.get("session", {}).get("settle_after_disconnect_s", 0.0))
 
 
 def move_joints(arm, joints, cfg: dict, log: logging.Logger, wait: bool = True) -> int:

@@ -22,6 +22,10 @@ IMOVEL_DEG = 0.05                 # graus em 1 s
 RESULTS: list[dict] = []
 
 
+class InducedFault(Exception):
+    """Falha induzida de propósito pelos testes; distinta de qualquer falha real."""
+
+
 def record(test_id, req, passed, measured, criterion):
     res = "PASSA" if passed else "FALHA"
     RESULTS.append({"teste": test_id, "requisito": req, "resultado": res,
@@ -45,8 +49,8 @@ def t_f2(cfg):
     try:
         with safe_session(cfg) as (arm, _, _):
             ref["arm"] = arm
-            raise RuntimeError("falha induzida (T-F2)")
-    except RuntimeError:
+            raise InducedFault("falha induzida (T-F2)")
+    except InducedFault:
         pass
     ok = not ref["arm"].connected
     record("T-F2", "R2", ok, f"connected após exceção={ref['arm'].connected}", "connected=False")
@@ -95,8 +99,8 @@ def t_s1(cfg):
             move_joints(arm, cfg["test_poses"]["start_joints"], cfg, log)
             move_joints(arm, far, cfg, log, wait=False)
             time.sleep(0.8)
-            raise RuntimeError("falha induzida a meio do movimento (T-S1)")
-    except RuntimeError:
+            raise InducedFault("falha induzida a meio do movimento (T-S1)")
+    except InducedFault:
         pass
     time.sleep(1.0)
     with safe_session(cfg) as (arm, _, _):
