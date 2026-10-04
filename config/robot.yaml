@@ -34,8 +34,7 @@ test_poses:                # graus; confirmem que estão dentro dos limites do L
   start_joints: [30.0, 10.0, 30.0, 0.0, 20.0, 0.0]   # partida para T-F3, T-P2, T-S1, T-S2
   far_joints:   [90.0, 30.0, 60.0, 0.0, 30.0, 0.0]   # alvo interrompido em T-S1
   pose_A_joints: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]      # Testes 5 e 8 (RViz dá radianos: converter!)
-  pose_B_joints: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]      # <-- preencher com a vossa Pose B
-
+  pose_B_joints: [72.093, 38.263, 58.090, -0.002, 19.832, 72.099]   # Teste 5 (graus)
 tests:
   n_connect: 10            # repetições T-P1
   n_home: 5                # repetições T-P2
