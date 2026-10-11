@@ -1,46 +1,51 @@
-# config/robot.yaml — TODOS os parâmetros vivem aqui (§A.5). Nenhum está no código Python.
-# Trocar entre simulador e robô real = mudar UMA linha: "target" (ou LITE6_TARGET=lab).
+# Parâmetros ajustáveis do projeto (§A.5): endereços, poses, velocidades e limites.
+# Os valores da aula 1 e os escolhidos para os testes ainda precisam de confirmação
+# com o docente antes de qualquer utilização no robô real.
+# Escolher o alvo em "target": sim = simulador; lab = robô real.
+# Se a variável de ambiente LITE6_TARGET estiver definida, tem prioridade sobre "target".
 target: sim                # sim | lab
 
 targets:
   sim:
     ip: 127.0.0.1          # simulador de firmware UFACTORY (§C.4)
-    check_joint_limit: false
+    check_joint_limit: false  # necessário para este simulador
   lab:
-    ip: 192.168.1.176     # observado na aula 1; confirmar na bancada antes de ligar
+    ip: 192.168.1.176     # observado na aula 1; confirmar com o docente na bancada
     check_joint_limit: true
-    home_joints: [-299.3, 3.9, 173.5, -90.5, -70.6, 322.4]  # graus; aula 1
-    tcp_offset: [0, 0, 83.6, 0, 0, 0]  # mm/graus; predefinição Gripper da aula 1
+    # Estes valores substituem os valores gerais de motion e tool no alvo lab.
+    home_joints: [-299.3, 3.9, 173.5, -90.5, -70.6, 322.4]  # graus; aula 1, confirmar
+    tcp_offset: [0, 0, 83.6, 0, 0, 0]  # mm/graus; Gripper da aula 1, confirmar
 
 session:
-  settle_after_disconnect_s: 1.0   # pausa após desligar; sem ela o controlador
-                                   # não responde à ligação seguinte (motion_enable code=3)
+  settle_after_disconnect_s: 1.0   # espera antes da próxima ligação; evita code=3 em motion_enable
 
 ros:
-  domain_id: 0             # <-- número do vosso grupo (Anexo B). O 0 é da equipa docente!
+  # O 0 é provisório e está reservado à equipa docente. Substituir pelo número do grupo.
+  domain_id: 0
 
 motion:
   home_joints: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]   # graus — home do simulador
   joint_speed: 20.0        # graus/s
   joint_acc: 200.0         # graus/s^2
-  home_tolerance_deg: 0.5  # R3
-  home_timeout_s: 30.0
+  home_tolerance_deg: 0.5  # erro máximo admitido no teste; confirmar com o docente
+  home_timeout_s: 30.0     # tempo máximo do teste, em segundos; confirmar
 
 safety:
-  max_joint_speed: 30.0    # graus/s — teto imposto pelo software (S2)
-  reduced_max_joint_speed: 54.0  # graus/s — valor configurado no Studio na aula 1
-  reduced_max_tcp_speed: 150.0   # mm/s — valor configurado no Studio na aula 1
+  # O programa recusa velocidades acima de 30°/s; o modo reduzido no Studio permite até 54°/s.
+  max_joint_speed: 30.0    # graus/s — teto escolhido para o programa (S2); confirmar
+  reduced_max_joint_speed: 54.0  # graus/s — valor registado no Studio na aula 1; confirmar
+  reduced_max_tcp_speed: 150.0   # mm/s — valor registado no Studio na aula 1; confirmar
+  # Obrigatório no lab: definir com o docente os limites da bancada nesta ordem, em mm.
   tcp_boundary_mm: null         # [x_max, x_min, y_max, y_min, z_max, z_min]
-                                 # definir com o docente para a bancada real
 
 tool:
-  tcp_offset: [0, 0, 0, 0, 0, 0]   # x, y, z (mm), roll, pitch, yaw (graus)
+  tcp_offset: [0, 0, 0, 0, 0, 0]   # simulador: x, y, z (mm), roll, pitch, yaw (graus)
 
 test_poses:                # graus; confirmem que estão dentro dos limites do Lite 6
   start_joints: [30.0, 10.0, 30.0, 0.0, 20.0, 0.0]   # partida para T-F3, T-P2, T-S1, T-S2
   far_joints:   [90.0, 30.0, 60.0, 0.0, 30.0, 0.0]   # alvo interrompido em T-S1
-  pose_A_joints: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]      # Testes 5 e 8 (RViz dá radianos: converter!)
-  pose_B_joints: [72.093, 38.263, 58.090, -0.002, 19.832, 72.099]   # Teste 5 (graus)
+  pose_A_joints: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]      # Pose A dos Testes 5 e 8; graus
+  pose_B_joints: [72.093, 38.263, 58.090, -0.002, 19.832, 72.099]   # Pose B dos Testes 5 e 8; graus
 tests:
   n_connect: 10            # repetições T-P1
   n_home: 5                # repetições T-P2

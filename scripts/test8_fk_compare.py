@@ -27,6 +27,7 @@ def pose_to_T(pose_mm_deg) -> np.ndarray:
 
 
 def main() -> None:
+    """Calcula a pose A ou B no SDK e compara a posição com o valor do tf2."""
     ap = argparse.ArgumentParser()
     ap.add_argument("--pose", choices=["A", "B"], default="A")
     ap.add_argument("--tf2-xyz", type=float, nargs=3, metavar=("X", "Y", "Z"))

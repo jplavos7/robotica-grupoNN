@@ -38,6 +38,7 @@ def max_diff(a, b):
 
 
 def t_f1(cfg):
+    """T-F1: confirma que a sessão termina a preparação pronta e sem erro."""
     with safe_session(cfg) as (arm, _, _):
         ok = arm.connected and arm.mode == 0 and arm.state != 4 and arm.error_code == 0
         med = f"connected={arm.connected} mode={arm.mode} state={arm.state} error={arm.error_code}"
@@ -45,6 +46,7 @@ def t_f1(cfg):
 
 
 def t_f2(cfg):
+    """T-F2: provoca uma exceção e confirma que a ligação é fechada."""
     ref = {}
     try:
         with safe_session(cfg) as (arm, _, _):
@@ -57,6 +59,7 @@ def t_f2(cfg):
 
 
 def t_f3(cfg):
+    """T-F3: move o braço e verifica o regresso à posição home."""
     tol = cfg["motion"]["home_tolerance_deg"]
     with safe_session(cfg) as (arm, _, log):
         move_joints(arm, cfg["test_poses"]["start_joints"], cfg, log)
@@ -67,6 +70,7 @@ def t_f3(cfg):
 
 
 def t_p1(cfg):
+    """T-P1: mede o tempo de abertura da sessão em várias repetições."""
     n, times = cfg["tests"]["n_connect"], []
     for _ in range(n):
         t0 = time.monotonic()
@@ -80,6 +84,7 @@ def t_p1(cfg):
 
 
 def t_p2(cfg):
+    """T-P2: mede o tempo de regresso a home em várias repetições."""
     n, times = cfg["tests"]["n_home"], []
     with safe_session(cfg) as (arm, _, log):
         for _ in range(n):
@@ -93,6 +98,7 @@ def t_p2(cfg):
 
 
 def t_s1(cfg):
+    """T-S1: interrompe um movimento e verifica se o braço fica parado."""
     far = cfg["test_poses"]["far_joints"]
     try:
         with safe_session(cfg) as (arm, _, log):
@@ -114,6 +120,7 @@ def t_s1(cfg):
 
 
 def t_s2(cfg):
+    """T-S2: tenta exceder o teto de velocidade e confirma a recusa."""
     bad = copy.deepcopy(cfg)
     bad["motion"]["joint_speed"] = cfg["safety"]["max_joint_speed"] * 2
     with safe_session(cfg) as (arm, _, log):
@@ -132,6 +139,7 @@ def t_s2(cfg):
 
 
 def t_i1(cfg):
+    """T-I1: procura endereços IP fixos no código Python."""
     p = subprocess.run([sys.executable, "-m", "pytest", "-q",
                         "tests/test_config.py::test_no_hardcoded_ip"],
                        cwd=ROOT, capture_output=True, text=True)

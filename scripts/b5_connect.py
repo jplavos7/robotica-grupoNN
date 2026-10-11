@@ -1,6 +1,6 @@
 """§B.5 ponto 2 e Teste 8: liga-se via safe_session, imprime ângulos e pose.
 
-    python scripts/b5_connect.py          # só lê
+    python scripts/b5_connect.py          # prepara a sessão e lê; sem trajetória
     python scripts/b5_connect.py --move   # vai a start_joints e volta a home (vê-se no Studio)
 """
 import argparse

@@ -1,12 +1,16 @@
 """Testes unitários que NÃO precisam de robô (§A.3, degrau 1). Correm a cada alteração."""
 import re
 
-from lite6.config import ROOT, load_config
+import pytest
+import yaml
+
+from lite6.config import DEFAULT_CONFIG, ROOT, load_config
 
 IP_RE = re.compile(r"\b\d{1,3}(?:\.\d{1,3}){3}\b")
 
 
 def test_config_loads():
+    """Confirma que o YAML carrega e contém os dados básicos do alvo."""
     cfg = load_config()
     assert cfg["target"] in cfg["targets"]
     assert "ip" in cfg["robot"]
@@ -14,13 +18,13 @@ def test_config_loads():
 
 
 def test_target_switch_is_one_parameter():
-    """Simulador <-> robô é um parâmetro, nunca uma edição (§A.3)."""
+    """Confirma que sim e lab podem ser escolhidos sem editar o código."""
     for name in load_config()["targets"]:
         assert load_config(target=name)["robot"]["ip"]
 
 
 def test_no_hardcoded_ip():
-    """T-I1 / §B.5.3: nenhum endereço IP escrito no código Python."""
+    """Procura endereços IP escritos diretamente nos scripts Python (T-I1)."""
     offenders = []
     for folder in ("lite6", "scripts"):
         for py in (ROOT / folder).rglob("*.py"):
@@ -31,10 +35,29 @@ def test_no_hardcoded_ip():
 
 
 def test_speed_within_cap():
+    """Confirma que a velocidade pedida não excede o teto definido no YAML."""
     cfg = load_config()
     assert cfg["motion"]["joint_speed"] <= cfg["safety"]["max_joint_speed"]
 
 
 def test_domain_id_is_group_number():
-    """Falha de propósito até porem o número do grupo (Anexo B) em ros.domain_id."""
+    """Exige o número do grupo em ros.domain_id; falha até ser atribuído."""
     assert 1 <= load_config()["ros"]["domain_id"] <= 16
+
+
+@pytest.mark.parametrize("missing, field", [
+    (("motion", "joint_acc"), "motion.joint_acc"),
+    (("targets", "sim", "ip"), "targets.sim.ip"),
+    (("safety",), "safety"),
+])
+def test_missing_config_field_is_named(tmp_path, missing, field):
+    """Confirma que um campo em falta aparece pelo nome na mensagem de erro."""
+    cfg = yaml.safe_load(DEFAULT_CONFIG.read_text(encoding="utf-8"))
+    section = cfg
+    for key in missing[:-1]:
+        section = section[key]
+    del section[missing[-1]]
+    path = tmp_path / "robot.yaml"
+    path.write_text(yaml.safe_dump(cfg, allow_unicode=True), encoding="utf-8")
+    with pytest.raises(ValueError, match=re.escape(f"Falta '{field}'")):
+        load_config(path=path, target="sim")

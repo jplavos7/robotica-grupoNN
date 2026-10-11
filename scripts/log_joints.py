@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import math
 import time
 from datetime import datetime
 
@@ -20,8 +21,8 @@ def main() -> None:
     parser.add_argument("--seconds", type=float, default=30.0)
     parser.add_argument("--plot", action="store_true", help="guardar também um gráfico PNG")
     args = parser.parse_args()
-    if args.seconds <= 0:
-        parser.error("--seconds deve ser positivo")
+    if not math.isfinite(args.seconds) or args.seconds <= 0:
+        parser.error("--seconds deve ser um número finito e positivo")
 
     cfg = load_config()
     arm = XArmAPI(cfg["robot"]["ip"], is_radian=False,

@@ -1,13 +1,13 @@
 # LW0 — Parte 2: Ambiente e Ciclo de Vida — Grupo NN
 
-<Nome 1> (<nº>) · <Nome 2> (<nº>) · Repositório: https://github.com/jplavos7/robotica-grupoNN
+Bernardo Pereira (2022219048) · João Lavos (n.º por confirmar) · Repositório: https://github.com/jplavos7/robotica-grupoNN
 
 ## 1. Ambiente
 
 | Item | Valor |
 |---|---|
 | Níveis instalados | básico (parte 1), intermédio e avançado |
-| Nível intermédio | Windows 11, Python 3.14.7, ambiente virtual `~/venvs/robotica`, VS Code (Python + Pylance), git |
+| Nível intermédio | Windows 11, VS Code (Python + Pylance), git; instalação inicial com Python 3.14.7 e revisão posterior com Python 3.12.10 no ambiente virtual `~/venvs/robotica` |
 | Simulador de firmware | Docker Desktop (WSL2), `danielwang123321/uf-ubuntu-docker`, perfil Lite 6 (`6 9`), firmware v2.4.0 |
 | Via do nível avançado | Via 2, de raiz, em máquina virtual |
 | Máquina virtual | VMware Workstation Pro 17, Ubuntu 24.04.5 LTS, 8 GB RAM, 4 núcleos, 60 GB, aceleração 3D ativa |
@@ -64,7 +64,9 @@ A Pose B resulta de uma translação de 269 mm em *y* com a orientação mantida
 As diferenças estão abaixo da resolução com que o `tf2_echo` imprime a translação (3 casas decimais em metros, ou seja, 1 mm). Na Pose B soma-se o arredondamento da conversão dos ângulos de radianos para graus. As duas ferramentas são consistentes dentro da precisão disponível. Unidades: o SDK usa mm e graus; o ROS 2 usa m e rad.
 
 ### Reprodutibilidade (§D.4)
-Num Windows limpo (ambiente virtual apagado, repositório clonado do GitHub), seguindo apenas o README: o ambiente foi recriado a partir do `requirements.txt`; `pytest` deu 4/5 (falha só o teste do `domain_id`, por definir); `b5_connect.py --move` ligou-se e moveu o braço; o Teste 8 repetiu 0.20 mm. Foram precisas três correções ao README, todas por diferenças entre Linux e Windows: faltavam os comandos para Windows; os comentários `#` na mesma linha partiam os comandos na `cmd`; o `docker run` usava `\` para continuar a linha. No Ubuntu, os Testes 1 e 3 passaram num terminal novo, sem configuração manual.
+Na verificação inicial, num Windows limpo (ambiente virtual apagado, repositório clonado do GitHub), seguindo apenas o README: o ambiente foi recriado a partir do `requirements.txt`; `pytest` deu 4/5 (falha só o teste do `domain_id`, por definir); `b5_connect.py --move` ligou-se e moveu o braço; o Teste 8 repetiu 0.20 mm. Foram precisas três correções ao README, todas por diferenças entre Linux e Windows: faltavam os comandos para Windows; os comentários `#` na mesma linha partiam os comandos na `cmd`; o `docker run` usava `\` para continuar a linha. No Ubuntu, os Testes 1 e 3 passaram num terminal novo, sem configuração manual.
+
+Na revisão posterior, com Python 3.12.10 num ambiente virtual já existente, a última execução da suite completa registada deu 17 testes aprovados e 1 falhado: `test_domain_id_is_group_number`, porque o número do grupo ainda não foi atribuído. Em separado, os 21 testes de `tests/test_safety.py` passaram. Esta revisão não repetiu a criação do ambiente virtual a partir do zero.
 
 ## 2. Exercício de ciclo de vida
 
