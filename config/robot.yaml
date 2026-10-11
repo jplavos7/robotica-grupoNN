@@ -7,8 +7,10 @@ targets:
     ip: 127.0.0.1          # simulador de firmware UFACTORY (§C.4)
     check_joint_limit: false
   lab:
-    ip: 0.0.0.0            # <-- IP do controlador do Lite 6 da vossa bancada
+    ip: 192.168.1.176     # observado na aula 1; confirmar na bancada antes de ligar
     check_joint_limit: true
+    home_joints: [-299.3, 3.9, 173.5, -90.5, -70.6, 322.4]  # graus; aula 1
+    tcp_offset: [0, 0, 83.6, 0, 0, 0]  # mm/graus; predefinição Gripper da aula 1
 
 session:
   settle_after_disconnect_s: 1.0   # pausa após desligar; sem ela o controlador
@@ -18,7 +20,7 @@ ros:
   domain_id: 0             # <-- número do vosso grupo (Anexo B). O 0 é da equipa docente!
 
 motion:
-  home_joints: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]   # graus — confirmem com o home da parte 1
+  home_joints: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]   # graus — home do simulador
   joint_speed: 20.0        # graus/s
   joint_acc: 200.0         # graus/s^2
   home_tolerance_deg: 0.5  # R3
@@ -26,6 +28,10 @@ motion:
 
 safety:
   max_joint_speed: 30.0    # graus/s — teto imposto pelo software (S2)
+  reduced_max_joint_speed: 54.0  # graus/s — valor configurado no Studio na aula 1
+  reduced_max_tcp_speed: 150.0   # mm/s — valor configurado no Studio na aula 1
+  tcp_boundary_mm: null         # [x_max, x_min, y_max, y_min, z_max, z_min]
+                                 # definir com o docente para a bancada real
 
 tool:
   tcp_offset: [0, 0, 0, 0, 0, 0]   # x, y, z (mm), roll, pitch, yaw (graus)

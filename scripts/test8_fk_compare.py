@@ -36,6 +36,8 @@ def main() -> None:
         q = cfg["test_poses"][f"pose_{args.pose}_joints"]
         code, pose = arm.get_forward_kinematics(q, input_is_radian=False, return_is_radian=False)
         log.info("get_forward_kinematics(%s) -> code=%s pose=%s", q, code, pose)
+        if code != 0 or len(pose) < 6:
+            raise RuntimeError(f"get_forward_kinematics falhou (code={code})")
 
     np.set_printoptions(precision=5, suppress=True)
     T = pose_to_T(pose)

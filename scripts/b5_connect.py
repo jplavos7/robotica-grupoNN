@@ -16,6 +16,8 @@ def main() -> None:
     with safe_session() as (arm, cfg, log):
         code, angles = arm.get_servo_angle(is_radian=False)
         code2, pose = arm.get_position(is_radian=False)
+        if code != 0 or code2 != 0:
+            raise RuntimeError(f"leitura das juntas/pose falhou (codes={code}, {code2})")
         print(f"alvo     : {cfg['target']} ({cfg['robot']['ip']})  firmware {arm.version}")
         print(f"ângulos  : {[round(a, 3) for a in angles[:6]]} graus (code={code})")
         print(f"pose TCP : {[round(p, 3) for p in pose]} mm/graus (code={code2})")

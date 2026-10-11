@@ -69,5 +69,29 @@ python scripts/lifecycle_tests.py
 `b5_connect`: §B.5 / Teste 8. `test8_fk_compare`: Teste 8 (valores tf2 em metros).
 `lifecycle_tests`: exercício de ciclo de vida.
 
+## 5. Material da aula 1
+
+O relatório de três páginas e os gráficos estão em `docs/aula1/`; as notas mais
+detalhadas estão em `docs/aula1/notas.md`. O registo de juntas da aula 1 foi
+adaptado para `scripts/log_joints.py`:
+
+```
+python -m scripts.log_joints --seconds 30 --plot
+```
+
+O script lê as seis juntas e guarda CSV e PNG em `logs/`. Para trabalho em modo
+manual no robô real, selecionar `target: lab` em `config/robot.yaml` e confirmar
+o IP na bancada. Este script não comanda movimento.
+
+A sessão em `lite6/session.py` usa os limites observados na aula 1 (54°/s nas
+juntas e 150 mm/s no TCP) para o alvo `lab`. Antes de a executar no robô real,
+preencher `safety.tcp_boundary_mm` com os seis limites da bancada definidos com
+o docente. Sem esses valores a sessão recusa ligar-se. O modo reduzido foi
+confirmado no Studio; a ativação da fronteira pelo script ainda não foi testada.
+
+O `home` do alvo `lab` e o offset da garra vêm do relatório da aula 1; os
+valores do simulador continuam separados. O número do grupo em `ros.domain_id`
+também está por definir.
+
 Alvo: `target:` em `config/robot.yaml` (`sim` ou `lab`).
 Contra o robô real: só com autorização do docente e um membro na paragem de emergência.

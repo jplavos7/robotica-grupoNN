@@ -24,4 +24,8 @@ def load_config(path: str | Path | None = None, target: str | None = None) -> di
         raise KeyError(f"alvo '{name}' não existe em {path} (opções: {list(cfg['targets'])})")
     cfg["target"] = name
     cfg["robot"] = cfg["targets"][name]
+    if "home_joints" in cfg["robot"]:
+        cfg["motion"]["home_joints"] = cfg["robot"]["home_joints"]
+    if "tcp_offset" in cfg["robot"]:
+        cfg["tool"]["tcp_offset"] = cfg["robot"]["tcp_offset"]
     return cfg
